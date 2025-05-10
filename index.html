@@ -49,19 +49,57 @@
                         margin: 20px 0;
                 }
 
-                .next-button {
-                        padding: 10px 20px;
+                /* 添加Day选择弹窗样式 */
+                .day-select-modal {
+                        display: none;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(0, 0, 0, 0.5);
+                        z-index: 1000;
+                        justify-content: center;
+                        align-items: center;
+                }
+
+                .day-select-modal.active {
+                        display: flex;
+                }
+
+                .day-select-content {
+                        background-color: white;
+                        padding: 20px;
+                        border-radius: 10px;
+                        width: 300px;
+                        text-align: center;
+                }
+
+                .day-select-title {
+                        margin-bottom: 20px;
+                        font-size: 18px;
+                        color: #333;
+                }
+
+                .day-buttons {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 10px;
+                }
+
+                .day-button {
+                        padding: 10px;
                         border: none;
                         border-radius: 5px;
-                        background-color: #27ae60;
+                        background-color: #3498db;
                         color: white;
                         cursor: pointer;
                         font-size: 16px;
                         transition: background-color 0.2s;
                 }
 
-                .next-button:hover {
-                        background-color: #219a52;
+                .day-button:hover {
+                        background-color: #2980b9;
                 }
 
                 body {
@@ -139,15 +177,51 @@
                         color: #2c3e50;
                         width: 45%;
                 }
+
+                .day-section {
+                        margin-bottom: 30px;
+                }
+
+                .day-title {
+                        background-color: #2c3e50;
+                        color: white;
+                        padding: 15px;
+                        font-size: 20px;
+                        font-weight: bold;
+                        cursor: pointer;
+                        border-radius: 10px;
+                        margin-bottom: 15px;
+                        transition: background-color 0.2s;
+                }
+
+                .day-title:hover {
+                        background-color: #34495e;
+                }
         </style>
 </head>
 
 <body>
         <h1>📚 张静怡的独家词汇记忆系统</h1>
 
+        <!-- 添加Day选择弹窗 -->
+        <div id="daySelectModal" class="day-select-modal">
+                <div class="day-select-content">
+                        <div class="day-select-title">请选择要练习的Day</div>
+                        <div class="day-buttons">
+                                <button class="day-button" onclick="selectDay(1)">Day 1</button>
+                                <button class="day-button" onclick="selectDay(2)">Day 2</button>
+                                <button class="day-button" onclick="selectDay(3)">Day 3</button>
+                                <button class="day-button" onclick="selectDay(4)">Day 4</button>
+                                <button class="day-button" onclick="selectDay(5)">Day 5</button>
+                                <button class="day-button" onclick="selectDay(6)">Day 6</button>
+                                <button class="day-button" onclick="selectDay(7)">Day 7</button>
+                        </div>
+                </div>
+        </div>
+
         <div class="mode-buttons">
-                <button class="mode-button" onclick="startRandomMode()">随机单词模式</button>
-                <button class="mode-button" onclick="startDictationMode()">默写模式</button>
+                <button class="mode-button" onclick="showDaySelect('random')">随机单词模式</button>
+                <button class="mode-button" onclick="showDaySelect('dictation')">默写模式</button>
         </div>
 
         <div id="randomMode" class="study-mode">
@@ -166,317 +240,1436 @@
                 </div>
         </div>
 
-        <!-- Group 1 -->
-        <div class="group">
-                <div class="group-title" onclick="toggleGroup(1)">📦 Group 1 - 基础概念</div>
-                <div id="group1">
-                        <div class="word-card" onclick="toggleChinese(this)"><span>acquaint vt.</span><span
-                                        class="chinese">(with)
-                                        使了解</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>acquaintance n.</span><span
-                                        class="chinese">[C]熟人;
-                                        [U]认识</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>recognize vt.</span><span
-                                        class="chinese">认出；确认；赏识</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>poverty n.</span><span
-                                        class="chinese">贫穷</span>
+        <!-- Day 1 Section -->
+        <div class="day-section">
+                <div class="day-title" onclick="toggleDay(1)">📅 Day 1</div>
+                <div id="day1-content">
+                        <!-- Group 1 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(1)">📦 Group 1 - 基础概念</div>
+                                <div id="group1">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>acquaint
+                                                        vt.</span><span class="chinese">(with)
+                                                        使了解</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>acquaintance
+                                                        n.</span><span class="chinese">[C]熟人;
+                                                        [U]认识</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>recognize
+                                                        vt.</span><span class="chinese">认出；确认；赏识</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>poverty
+                                                        n.</span><span class="chinese">贫穷</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>basically
+                                                        ad.</span><span class="chinese">基本上</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>basis n.</span><span
+                                                        class="chinese">基础</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>basics n.</span><span
+                                                        class="chinese">基本因素，基本原理，概要</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>element
+                                                        n.</span><span class="chinese">元素；成分;
+                                                        [pl.]基础;
+                                                        [pl.]自然力</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>elementary
+                                                        a.</span><span class="chinese">基本的；初级的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>fundamental
+                                                        a.</span><span class="chinese">基本的 n.
+                                                        [pl.]基本原则</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>principal
+                                                        a.</span><span class="chinese">主要的 n.
+                                                        校长；资本；主角</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>principle
+                                                        n.</span><span class="chinese">原则；基本信念</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>primary
+                                                        a.</span><span class="chinese">首要的；最初的</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>prime a.</span><span
+                                                        class="chinese">首要的；最好的
+                                                        n.青春；全盛时期
+                                                        vt.使准备好</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>initial
+                                                        a.</span><span class="chinese">开始的 n.
+                                                        [常pl.]首字母</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>initiate
+                                                        vt.</span><span class="chinese">开始；使初步了解；接纳
+                                                        n.新加入组织的人</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>ative n.</span><span
+                                                        class="chinese">主动性；倡议；主动权</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>necessarily
+                                                        ad.</span><span class="chinese">必要地；必然地</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>necessity
+                                                        n.</span><span class="chinese">必需品；必要</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>protest
+                                                        n./v.</span><span class="chinese">抗议，反对</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>contradict
+                                                        vt.</span><span class="chinese">反驳；与…发生矛盾</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reform
+                                                        v./n.</span><span class="chinese">改革，改良；改正</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>counter
+                                                        n.</span><span class="chinese">柜台；筹码；计数器
+                                                        vt. 反驳
+                                                        ad. 反方向地</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>conflict
+                                                        n.</span><span class="chinese">冲突；战争</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>confront
+                                                        vt.</span><span class="chinese">迎面遇到；正视；使对质</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>basically ad.</span><span
-                                        class="chinese">基本上</span>
+
+                        <!-- Group 2 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(2)">🏆 Group 2 - 竞争与观察</div>
+                                <div id="group2" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>compete
+                                                        vi.</span><span class="chinese">竞争</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>competitive
+                                                        a.</span><span class="chinese">竞争的；好竞争的；有竞争力的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>fierce a.</span><span
+                                                        class="chinese">凶猛的；狂热的；猛烈的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>capitalize
+                                                        v.</span><span class="chinese">用大写字母写；为…提供资金</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>conference
+                                                        n.</span><span class="chinese">会议；商谈</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>participate
+                                                        vi.</span><span class="chinese">(in)
+                                                        参加</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>spectator
+                                                        n.</span><span class="chinese">观众，旁观者</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>view n.</span><span
+                                                        class="chinese">看法；观察；景色 vt.
+                                                        看待</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>onlooker
+                                                        n.</span><span class="chinese">旁观者</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>audience
+                                                        n.</span><span class="chinese">听众，观众</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>observe
+                                                        vt.</span><span class="chinese">注意到；观察；评说；遵守</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>performance
+                                                        n.</span><span class="chinese">表演；履行；表现</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>skim vt.</span><span
+                                                        class="chinese">撇；掠过；浏览 vi.
+                                                        略读</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>scan vt.</span><span
+                                                        class="chinese">细看；扫描；浏览 n.
+                                                        扫描</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>overlook
+                                                        vt.</span><span class="chinese">忽略；宽恕；俯瞰</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>glimpse
+                                                        vt./n.</span><span class="chinese">一瞥</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>glare vi.</span><span
+                                                        class="chinese">(at)
+                                                        怒视；发出刺眼的光线
+                                                        n.强光；怒视；炫耀</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>gleam
+                                                        vi./n.</span><span class="chinese">闪亮;
+                                                        (with)
+                                                        闪现，流露</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>glitter
+                                                        vi.</span><span class="chinese">闪耀 n.
+                                                        闪光；辉煌</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>glow n.</span><span
+                                                        class="chinese">光亮；脸红；激情 vi.
+                                                        灼热；（脸）红；洋溢</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>glimmer
+                                                        v./n.</span><span class="chinese">发出微光；微弱的闪光</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>prominent
+                                                        a.</span><span class="chinese">突出的；突起的</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>outstanding
+                                                        a.</span><span class="chinese">杰出的；未解决的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>eminent
+                                                        a.</span><span class="chinese">卓越的</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>excel vi.</span><span
+                                                        class="chinese">(at, in) 突出
+                                                        vt.
+                                                        胜过</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>basis n.</span><span
-                                        class="chinese">基础</span>
+
+                        <!-- Group 3 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(3)">💡 Group 3 - 理解与强度</div>
+                                <div id="group3" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>proficient
+                                                        a.</span><span class="chinese">熟练的，精通的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>conspicuous
+                                                        a.</span><span class="chinese">显眼的</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>noticeable
+                                                        a.</span><span class="chinese">显而易见的</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>remark
+                                                        vt.</span><span class="chinese">说 vi. (on)
+                                                        评论 n.
+                                                        评论</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>insult
+                                                        vt./n.</span><span class="chinese">侮辱</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>detail n.</span><span
+                                                        class="chinese">细节；枝节 vt.
+                                                        详述；列举</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>comment
+                                                        n.</span><span class="chinese">评论；闲话 vt.
+                                                        评论</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>react vi.</span><span
+                                                        class="chinese">反应;
+                                                        (against) 反对;
+                                                        (with) 起化学反应; (on, upon) 影响</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reaction
+                                                        n.</span><span class="chinese">反应，反作用;
+                                                        (against) 反动</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>impress
+                                                        vt.</span><span class="chinese">给…以深刻的印象；压印</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>grace n.</span><span
+                                                        class="chinese">优美；[常
+                                                        pl.]风度；宽限
+                                                        vt. 使优美</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>gracious
+                                                        a.</span><span class="chinese">和蔼的；优美的
+                                                        int.
+                                                        天哪！</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>disgrace
+                                                        n.</span><span class="chinese">耻辱 v.
+                                                        使失宠；使蒙羞</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>comprehend
+                                                        v.</span><span class="chinese">理解</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>comprehensive
+                                                        a.</span><span class="chinese">综合的</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>extend
+                                                        vt.</span><span class="chinese">延伸；扩大；提供
+                                                        vi.
+                                                        延伸；达到</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>extent n.</span><span
+                                                        class="chinese">程度，范围；广度</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>extensive
+                                                        a.</span><span class="chinese">广阔的；广泛的</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>exclusion
+                                                        n.</span><span class="chinese">排除在外，排斥</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>exclusive
+                                                        a.</span><span class="chinese">奢华的；独有的；排斥的;
+                                                        (of) 不包括…的 n. 独家新闻</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>inclusive
+                                                        a.</span><span class="chinese">包括一切的</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>eradicate
+                                                        v.</span><span class="chinese">根除，消灭，杜绝</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>intense
+                                                        a.</span><span class="chinese">强烈的，紧张的；专注的；热情的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>intensify
+                                                        v.</span><span class="chinese">增强</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>intensive
+                                                        a.</span><span class="chinese">加强的；精工细作的</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>basics n.</span><span
-                                        class="chinese">基本因素，基本原理，概要</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>element n.</span><span
-                                        class="chinese">元素；成分;
-                                        [pl.]基础;
-                                        [pl.]自然力</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>elementary a.</span><span
-                                        class="chinese">基本的；初级的</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>fundamental a.</span><span
-                                        class="chinese">基本的 n.
-                                        [pl.]基本原则</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>principal a.</span><span
-                                        class="chinese">主要的 n.
-                                        校长；资本；主角</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>principle n.</span><span
-                                        class="chinese">原则；基本信念</span>
+
+                        <!-- Group 4 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(4)">🎯 Group 4 - 核心概念</div>
+                                <div id="group4" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>concentrate
+                                                        vi.</span><span class="chinese">全神贯注；集中 vt.
+                                                        集中；浓缩 n. 浓缩物</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>grave n.</span><span
+                                                        class="chinese">坟墓 a.
+                                                        严重的；严肃的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>gravity
+                                                        n.</span><span class="chinese">重力；严重；严肃</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>solemn a.</span><span
+                                                        class="chinese">严肃的；庄严的</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>amount n.</span><span
+                                                        class="chinese">数量；总数 vi.
+                                                        (to)
+                                                        合计；接近</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>mount vt.</span><span
+                                                        class="chinese">登上；发起；安放
+                                                        vi. 增加
+                                                        n.[M-][用于山名前]山</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>exceed
+                                                        vt.</span><span class="chinese">超过</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>exceedingly
+                                                        ad.</span><span class="chinese">极其</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>excess n.</span><span
+                                                        class="chinese">过度；超越 a.
+                                                        额外的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>underline
+                                                        vt.</span><span class="chinese">在…下面划线；强调</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>underlie
+                                                        vt.</span><span class="chinese">构成…的基础（或起因）</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>utilize
+                                                        vt.</span><span class="chinese">利用</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>utility
+                                                        n.</span><span class="chinese">功用，效用；[常pl.]公用事业</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>premise
+                                                        n.</span><span class="chinese">[pl.]经营场址；前提</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>hypothesis
+                                                        n.</span><span class="chinese">假说，前提</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>phenomenon
+                                                        n.</span><span class="chinese">现象；非凡的人</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>marvelous
+                                                        a.</span><span class="chinese">惊人的</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>dedicate
+                                                        vt.</span><span class="chinese">题献词于…上;
+                                                        (to)
+                                                        把…献给</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>toast n.</span><span
+                                                        class="chinese">烤面包；祝酒辞vt.
+                                                        烘，烤；为…干杯</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>memorise/-ize
+                                                        v.</span><span class="chinese">记住</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>memorial
+                                                        a.</span><span class="chinese">纪念的 n.
+                                                        纪念碑</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>wisdom n.</span><span
+                                                        class="chinese">明智；智慧</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>wit n.</span><span
+                                                        class="chinese">风趣；[常pl.]智力，才智</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>organ n.</span><span
+                                                        class="chinese">器官；风琴；机构；新闻媒介</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>organize/-ise
+                                                        vt.</span><span class="chinese">组织；使有条理</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>primary a.</span><span
-                                        class="chinese">首要的；最初的</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>prime a.</span><span
-                                        class="chinese">首要的；最好的
-                                        n.青春；全盛时期
-                                        vt.使准备好</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>initial a.</span><span
-                                        class="chinese">开始的 n.
-                                        [常pl.]首字母</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>initiate vt.</span><span
-                                        class="chinese">开始；使初步了解；接纳
-                                        n.新加入组织的人</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>ative n.</span><span
-                                        class="chinese">主动性；倡议；主动权</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>necessarily ad.</span><span
-                                        class="chinese">必要地；必然地</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>necessity n.</span><span
-                                        class="chinese">必需品；必要</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>protest n./v.</span><span
-                                        class="chinese">抗议，反对</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>contradict vt.</span><span
-                                        class="chinese">反驳；与…发生矛盾</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>reform v./n.</span><span
-                                        class="chinese">改革，改良；改正</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>counter n.</span><span
-                                        class="chinese">柜台；筹码；计数器
-                                        vt. 反驳
-                                        ad. 反方向地</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>conflict n.</span><span
-                                        class="chinese">冲突；战争</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>confront vt.</span><span
-                                        class="chinese">迎面遇到；正视；使对质</span></div>
                 </div>
         </div>
 
-        <!-- Group 2 -->
-        <div class="group">
-                <div class="group-title" onclick="toggleGroup(2)">🏆 Group 2 - 竞争与观察</div>
-                <div id="group2" style="display: none;">
-                        <div class="word-card" onclick="toggleChinese(this)"><span>compete vi.</span><span
-                                        class="chinese">竞争</span>
+        <!-- Day 2 Section -->
+        <div class="day-section">
+                <div class="day-title" onclick="toggleDay(2)">📅 Day 2</div>
+                <div id="day2-content" style="display: none;">
+                        <!-- Day 2 Group 1 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(5)">📦 Group 1 - 变形与变化</div>
+                                <div id="group5" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>distort
+                                                        vt.</span><span class="chinese">曲解；使变形 vi. 变形</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>resort
+                                                        vi.</span><span class="chinese">(to) 求助，诉诸 n. 求助；求助的对象；胜地</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>ensure
+                                                        vt.</span><span class="chinese">确保</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>insure
+                                                        vt.</span><span class="chinese">给…保险；保证</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>consistent
+                                                        a.</span><span class="chinese">坚持的；一致的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>vary vi.</span><span
+                                                        class="chinese">变化 vt. 使不同</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>variable
+                                                        a.</span><span class="chinese">易变的；可变的 n. 可变因素</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>misfortune
+                                                        n.</span><span class="chinese">不幸，逆境；不幸事故</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>relevant
+                                                        a.</span><span class="chinese">有关的，切题的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>simultaneous
+                                                        a.</span><span class="chinese">同时发生的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>impractical
+                                                        a.</span><span class="chinese">不现实的，不切实际的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>obvious
+                                                        a.</span><span class="chinese">明显的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>spontaneous
+                                                        a.</span><span class="chinese">自发的，无意识的；天真率直的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>substance
+                                                        n.</span><span class="chinese">物质；实质；大意；根据</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>substantial
+                                                        a.</span><span class="chinese">大量的；牢固的；实质的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>synthesis
+                                                        n.</span><span class="chinese">综合；合成</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>synthetic
+                                                        a.</span><span class="chinese">合成的，人造的；虚假的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>crude a.</span><span
+                                                        class="chinese">粗鲁的；天然的；粗糙的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>raw a.</span><span
+                                                        class="chinese">自然状态的，生的；未经分析的；生疏无知的；露肉而刺痛的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>defect n.</span><span
+                                                        class="chinese">缺点 vi. 叛变</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>flaw n.</span><span
+                                                        class="chinese">缺点，瑕疵</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>condemn
+                                                        vt.</span><span class="chinese">谴责；判…刑</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reproach n./
+                                                        vt.</span><span class="chinese">责备</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>rebuke
+                                                        n./v.</span><span class="chinese">谴责，指责，斥责</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>imaginary
+                                                        a.</span><span class="chinese">想象中的，虚构的</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>competitive a.</span><span
-                                        class="chinese">竞争的；好竞争的；有竞争力的</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>fierce a.</span><span
-                                        class="chinese">凶猛的；狂热的；猛烈的</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>capitalize v.</span><span
-                                        class="chinese">用大写字母写；为…提供资金</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>conference n.</span><span
-                                        class="chinese">会议；商谈</span>
+
+                        <!-- Day 2 Group 2 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(6)">🎨 Group 2 - 创造与想象</div>
+                                <div id="group6" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>imaginative
+                                                        a.</span><span class="chinese">富有想象力的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>devise
+                                                        vt.</span><span class="chinese">发明，策划</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>device n.</span><span
+                                                        class="chinese">装置；策略</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>ingenious
+                                                        a.</span><span class="chinese">设计独特的；灵巧的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>create
+                                                        vt.</span><span class="chinese">创造；引起</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>creative
+                                                        a.</span><span class="chinese">有创造力的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>theoretical
+                                                        a.</span><span class="chinese">理论（上）的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>accord n.</span><span
+                                                        class="chinese">一致；协议 vi. (with) 相符合 vt. 授予</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>accordance
+                                                        n.</span><span class="chinese">一致</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>accordingly
+                                                        ad.</span><span class="chinese">相应地；所以</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>sense n.</span><span
+                                                        class="chinese">官能，感觉；意味；意识 v. 感知，理会</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>sensible
+                                                        a.</span><span class="chinese">明智的；察觉的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>sensitive
+                                                        a.</span><span class="chinese">敏感的；神经过敏的，容易生气的；易受伤害的</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>efficient
+                                                        a.</span><span class="chinese">效率高的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>allergy
+                                                        n.</span><span class="chinese">（因食物等引起的）过敏症</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>infect
+                                                        vt.</span><span class="chinese">感染；影响</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>disinfect
+                                                        v.</span><span class="chinese">杀菌（消毒）</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>epidemic
+                                                        n.</span><span class="chinese">流行病；流传 a. 流传极广的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>contagious
+                                                        a.</span><span class="chinese">（接触）传染的；（情绪等）有感染力的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>widespread
+                                                        a.</span><span class="chinese">分布广的，普遍的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>virus n.</span><span
+                                                        class="chinese">病毒；病毒性疾病</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>absolute
+                                                        a.</span><span class="chinese">绝对的；不受任何限制的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>roughly
+                                                        ad.</span><span class="chinese">粗鲁地；大概</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>approximate
+                                                        a.</span><span class="chinese">近似的 v. (to) 接近；估计</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>accidental
+                                                        a.</span><span class="chinese">意外的</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>participate vi.</span><span
-                                        class="chinese">(in)
-                                        参加</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>spectator n.</span><span
-                                        class="chinese">观众，旁观者</span>
+
+                        <!-- Day 2 Group 3 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(7)">🎯 Group 3 - 精确与决定</div>
+                                <div id="group7" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>accurate
+                                                        a.</span><span class="chinese">正确无误的；精确的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>omit vt.</span><span
+                                                        class="chinese">省略；遗漏</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>incidentally
+                                                        ad.</span><span class="chinese">顺便提一句</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>eventual
+                                                        a.</span><span class="chinese">最后的，最终的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>pursue
+                                                        vt.</span><span class="chinese">继续；追赶；追求</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>pursuit
+                                                        n.</span><span class="chinese">追求；追赶；[常pl.]嗜好</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>theft n.</span><span
+                                                        class="chinese">偷窃，失窃</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>burglar
+                                                        n.</span><span class="chinese">窃贼</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>engage v.</span><span
+                                                        class="chinese">占用; (in) 从事于；雇；使订婚</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>indulge
+                                                        vt.</span><span class="chinese">使沉溺于；纵容 vi. (in) 沉溺</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>action n.</span><span
+                                                        class="chinese">行动；作用；情节</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>decisive
+                                                        a.</span><span class="chinese">决定性的；坚定的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>determination
+                                                        n.</span><span class="chinese">决心，决定；确定，测定</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>defensive
+                                                        a.</span><span class="chinese">防御性的；自卫的，时刻防备的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>defendant
+                                                        n.</span><span class="chinese">被告</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>demanding
+                                                        a.</span><span class="chinese">要求高的，费力（心）的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>convince
+                                                        vt.</span><span class="chinese">使确信，使信服</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>involve
+                                                        vt.</span><span class="chinese">包含；使卷入；牵涉</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>concern
+                                                        n.</span><span class="chinese">关切的事；关心；关系；公司 vt.有关于；使关心</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>concerning
+                                                        prep.</span><span class="chinese">关于</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>dependent
+                                                        a.</span><span class="chinese">(on, upon) 依靠的；取决于…的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>independent
+                                                        a.</span><span class="chinese">独立的；无偏见的；不相关连的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>rely vi.</span><span
+                                                        class="chinese">(on, upon) 依靠；信赖</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reliable
+                                                        a.</span><span class="chinese">可靠的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>protection
+                                                        n.</span><span class="chinese">保护</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>view n.</span><span
-                                        class="chinese">看法；观察；景色 vt.
-                                        看待</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>onlooker n.</span><span
-                                        class="chinese">旁观者</span>
+
+                        <!-- Day 2 Group 4 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(8)">🏠 Group 4 - 居住与生活</div>
+                                <div id="group8" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>attendance
+                                                        n.</span><span class="chinese">出席人数；参加；护理</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>attendant
+                                                        n.</span><span class="chinese">服务人员 a. 随之而产生的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>assist
+                                                        v./n.</span><span class="chinese">帮助</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>aid n.</span><span
+                                                        class="chinese">救助；辅助物 vt. 援助</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>secure a.</span><span
+                                                        class="chinese">安全的；牢固的；无忧虑的 vt.得到；使安全；缚牢</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>shelter
+                                                        n.</span><span class="chinese">掩蔽处；住所；掩蔽 vt. 掩蔽，庇护</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>resident
+                                                        n.</span><span class="chinese">居民；住院医生 a.居住的；住校的，住院的</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reside
+                                                        vi.</span><span class="chinese">居住，定居; (in)（性质等）存在</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>dwell vi.</span><span
+                                                        class="chinese">居住</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>monopoly
+                                                        n.</span><span class="chinese">垄断；垄断商品</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>monotonous
+                                                        a.</span><span class="chinese">单调的，枯燥的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>route n.</span><span
+                                                        class="chinese">路线，路程</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>retail v./n./
+                                                        ad.</span><span class="chinese">零售</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>comb n.</span><span
+                                                        class="chinese">梳子 vt. 彻底搜查</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>coarse a.</span><span
+                                                        class="chinese">粗糙的；粗劣的；粗俗的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>vulgar a.</span><span
+                                                        class="chinese">粗野的；粗俗的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>sum n.</span><span
+                                                        class="chinese">总数；金额；算术 vi. 共计</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>summarize
+                                                        vt.</span><span class="chinese">概括，总结</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>overtime
+                                                        n.</span><span class="chinese">超时工作；加班费 ad. 加班</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>discontent
+                                                        n.</span><span class="chinese">不满，不满足</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>disregard
+                                                        vt./n.</span><span class="chinese">漠视</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>disorder
+                                                        n.</span><span class="chinese">混乱；骚乱；失调</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>physical
+                                                        a.</span><span class="chinese">身体的；物理的；物质的 n. 体检</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>physiology
+                                                        n.</span><span class="chinese">生理学</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>ecology
+                                                        n.</span><span class="chinese">生态；生态学</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>audience n.</span><span
-                                        class="chinese">听众，观众</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>observe vt.</span><span
-                                        class="chinese">注意到；观察；评说；遵守</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>performance n.</span><span
-                                        class="chinese">表演；履行；表现</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>skim vt.</span><span
-                                        class="chinese">撇；掠过；浏览 vi.
-                                        略读</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>scan vt.</span><span
-                                        class="chinese">细看；扫描；浏览 n.
-                                        扫描</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>overlook vt.</span><span
-                                        class="chinese">忽略；宽恕；俯瞰</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>glimpse vt./n.</span><span
-                                        class="chinese">一瞥</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>glare vi.</span><span
-                                        class="chinese">(at)
-                                        怒视；发出刺眼的光线
-                                        n.强光；怒视；炫耀</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>gleam vi./n.</span><span
-                                        class="chinese">闪亮;
-                                        (with)
-                                        闪现，流露</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>glitter vi.</span><span
-                                        class="chinese">闪耀 n.
-                                        闪光；辉煌</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>glow n.</span><span
-                                        class="chinese">光亮；脸红；激情 vi.
-                                        灼热；（脸）红；洋溢</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>glimmer v./n.</span><span
-                                        class="chinese">发出微光；微弱的闪光</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>prominent a.</span><span
-                                        class="chinese">突出的；突起的</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>outstanding a.</span><span
-                                        class="chinese">杰出的；未解决的</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>eminent a.</span><span
-                                        class="chinese">卓越的</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>excel vi.</span><span
-                                        class="chinese">(at, in) 突出
-                                        vt.
-                                        胜过</span></div>
                 </div>
         </div>
 
-        <!-- Group 3 -->
-        <div class="group">
-                <div class="group-title" onclick="toggleGroup(3)">💡 Group 3 - 理解与强度</div>
-                <div id="group3" style="display: none;">
-                        <div class="word-card" onclick="toggleChinese(this)"><span>proficient a.</span><span
-                                        class="chinese">熟练的，精通的</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>conspicuous a.</span><span
-                                        class="chinese">显眼的</span>
+        <!-- Day 3 Section -->
+        <div class="day-section">
+                <div class="day-title" onclick="toggleDay(3)">📅 Day 3</div>
+                <div id="day3-content" style="display: none;">
+                        <!-- Day 3 Group 1 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(9)">🎯 Group 1 - 困境与限制</div>
+                                <div id="group9" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>dilemma
+                                                        n.</span><span class="chinese">困境</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>inform
+                                                        vt.</span><span class="chinese">通知 vi. (against, on) 告发</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>trigger
+                                                        n.</span><span class="chinese">扳机；引起反应的行动 vt. 触发</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>startle
+                                                        vt.</span><span class="chinese">使惊吓，使吃惊</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>restrain
+                                                        vt.</span><span class="chinese">阻止；抑制</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>refrain
+                                                        vi.</span><span class="chinese">(from) 抑制，戒除 n.（诗歌的）叠句</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>setback
+                                                        n.</span><span class="chinese">挫折，倒退</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>limitation
+                                                        n.</span><span class="chinese">限制；[常pl.]局限</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>confine
+                                                        vt.</span><span class="chinese">限制；使不外出 n. [pl.]界限</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>restrict
+                                                        vt.</span><span class="chinese">限制</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>expand v.</span><span
+                                                        class="chinese">扩张；膨胀</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>expansion
+                                                        n.</span><span class="chinese">扩展；膨胀</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>stretch
+                                                        v.</span><span class="chinese">伸展，延伸；使倾注全力 n.一段时间；伸展，延伸</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>finance
+                                                        n.</span><span class="chinese">财政；[常 pl.]资金 vt. 为…提供资金</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>bonus n.</span><span
+                                                        class="chinese">奖金；额外给予的东西</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>enlarge
+                                                        v.</span><span class="chinese">扩大；放大</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>budget n.</span><span
+                                                        class="chinese">预算 v. (for) 做安排 a. 低廉的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>disclose
+                                                        vt.</span><span class="chinese">透露</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>expose
+                                                        vt.</span><span class="chinese">暴露; (to) 使处于…作用之下；揭露</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>uncover
+                                                        vt.</span><span class="chinese">揭露；揭开…的盖子</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>abandon
+                                                        vt.</span><span class="chinese">抛弃；放弃</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>quit v.</span><span
+                                                        class="chinese">停止，放弃；离开</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>resign
+                                                        vi.</span><span class="chinese">辞职 vt. 放弃; (to) 使顺从</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>release
+                                                        vt./n.</span><span class="chinese">释放；解除；放开；发布</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>discharge
+                                                        v./n.</span><span class="chinese">允许…离开；排出；卸（货）；放电</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>dismiss
+                                                        vt.</span><span class="chinese">不再考虑；解雇；解散；驳回</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>qualify
+                                                        v.</span><span class="chinese">（使）胜任，（使）具有资格</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>qualification
+                                                        n.</span><span class="chinese">资格，合格证书；限制</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>license/-ence
+                                                        n.</span><span class="chinese">执照；许可 vt. 给…发许可证</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>noticeable a.</span><span
-                                        class="chinese">显而易见的</span>
+
+                        <!-- Day 3 Group 2 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(10)">🔄 Group 2 - 适应与调整</div>
+                                <div id="group10" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>adapt vt.</span><span
+                                                        class="chinese">使适应；修改 vi. (to) 适应</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>adjust
+                                                        vt.</span><span class="chinese">调整 vi. (to) 适应</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>regulate
+                                                        vt.</span><span class="chinese">管理；调节</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>regulation
+                                                        n.</span><span class="chinese">规则；管理，调节</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>equip vt.</span><span
+                                                        class="chinese">装备；使有准备</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>modify
+                                                        vt.</span><span class="chinese">修改；修饰</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>conform
+                                                        vi.</span><span class="chinese">(to, with) 遵守，适应；一致</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>cater vi.</span><span
+                                                        class="chinese">(for, to) 迎合; (for) 提供饮食及服务</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>pose vt.</span><span
+                                                        class="chinese">造成；提出（问题等）vi. 摆姿势；假装 n. 样子</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>signal n.</span><span
+                                                        class="chinese">信号；标志 v. 发信号；表示 a. 显著的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>gesture
+                                                        n.</span><span class="chinese">姿势；表示 v. 做手势</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>label n.</span><span
+                                                        class="chinese">标签；称号 vt. 贴标签于；把…称为</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>tag n.</span><span
+                                                        class="chinese">标签vt.给…加上标签</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>readily
+                                                        ad.</span><span class="chinese">乐意地；容易地；很快地</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>prompt
+                                                        vt.</span><span class="chinese">促使；提示 a. 敏捷的，及时的 n. 提词</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>instant
+                                                        a.</span><span class="chinese">即刻的；紧急的；速溶的 n. 瞬间</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>beforehand
+                                                        ad.</span><span class="chinese">预先</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>advanced
+                                                        a.</span><span class="chinese">先进的；高级的；年迈的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>haste n.</span><span
+                                                        class="chinese">急速，急忙</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>urge vt.</span><span
+                                                        class="chinese">鼓励；竭力主张；催促 n.强烈的欲望</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>urgent a.</span><span
+                                                        class="chinese">急迫的，紧要的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>prior a.</span><span
+                                                        class="chinese">优先的，在前的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>priority
+                                                        n.</span><span class="chinese">优先（权）；优先考虑的事</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>emergency
+                                                        n.</span><span class="chinese">紧急情况，非常时刻</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>leak v.</span><span
+                                                        class="chinese">（使）漏；泄露 n. 漏洞；泄漏</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>trickle
+                                                        v.</span><span class="chinese">滴流，滴淌；缓慢地移动</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>remark vt.</span><span
-                                        class="chinese">说 vi. (on)
-                                        评论 n.
-                                        评论</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>insult vt./n.</span><span
-                                        class="chinese">侮辱</span>
+
+                        <!-- Day 3 Group 3 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(11)">🎯 Group 3 - 目标与恢复</div>
+                                <div id="group11" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>objection
+                                                        n.</span><span class="chinese">反对；反对的理由</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>objective
+                                                        n.</span><span class="chinese">目标a. 客观的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>subjective
+                                                        a.</span><span class="chinese">主观（上）的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>favo(u) rable
+                                                        a.</span><span class="chinese">称赞的；有利的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>renew v.</span><span
+                                                        class="chinese">重新开始；（使）更新；延长（…的）有效期</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>relieve
+                                                        vt.</span><span class="chinese">使轻松；减轻；使得到调剂；接替</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>rehearsal
+                                                        n.</span><span class="chinese">排练，排演</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>restore
+                                                        vt.</span><span class="chinese">恢复；修复；归还</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>refresh
+                                                        v.</span><span class="chinese">（使）振作精神</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>renovate
+                                                        vt.</span><span class="chinese">更新</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>recovery
+                                                        n.</span><span class="chinese">恢复，痊愈；追回</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>regain v.</span><span
+                                                        class="chinese">取回，恢复；返回</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>revive
+                                                        vt.</span><span class="chinese">使复苏 vi. 恢复</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>attain
+                                                        vt.</span><span class="chinese">达到</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>achievement
+                                                        n.</span><span class="chinese">成就；实现</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>breakthrough
+                                                        n.</span><span class="chinese">突破</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>historical
+                                                        a.</span><span class="chinese">历史（上）的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>historic
+                                                        a.</span><span class="chinese">历史上著名的，具有重大历史意义的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>approach
+                                                        v.</span><span class="chinese">靠近 n. 靠近；途径；方法</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>acquire
+                                                        vt.</span><span class="chinese">获得；学到</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>acquisition
+                                                        n.</span><span class="chinese">取得；获得物</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>decent a.</span><span
+                                                        class="chinese">体面的；宽厚的；得体的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>respectable
+                                                        a.</span><span class="chinese">可敬的，高尚的；相当不错的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>admirable
+                                                        a.</span><span class="chinese">令人赞叹的，令人钦佩的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>fee n.</span><span
+                                                        class="chinese">费，酬金</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>detail n.</span><span
-                                        class="chinese">细节；枝节 vt.
-                                        详述；列举</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>comment n.</span><span
-                                        class="chinese">评论；闲话 vt.
-                                        评论</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>react vi.</span><span
-                                        class="chinese">反应;
-                                        (against) 反对;
-                                        (with) 起化学反应; (on, upon) 影响</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>reaction n.</span><span
-                                        class="chinese">反应，反作用;
-                                        (against) 反动</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>impress vt.</span><span
-                                        class="chinese">给…以深刻的印象；压印</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>grace n.</span><span
-                                        class="chinese">优美；[常
-                                        pl.]风度；宽限
-                                        vt. 使优美</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>gracious a.</span><span
-                                        class="chinese">和蔼的；优美的
-                                        int.
-                                        天哪！</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>disgrace n.</span><span
-                                        class="chinese">耻辱 v.
-                                        使失宠；使蒙羞</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>comprehend v.</span><span
-                                        class="chinese">理解</span>
+
+                        <!-- Day 3 Group 4 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(12)">💰 Group 4 - 费用与生活</div>
+                                <div id="group12" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>tuition
+                                                        n.</span><span class="chinese">教学；学费</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>afford v.</span><span
+                                                        class="chinese">有足够的时间（金钱）去（做某事）</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>payment
+                                                        n.</span><span class="chinese">支付的款项；支付</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>essential
+                                                        a.</span><span class="chinese">必不可少的；本质的 n. [常 pl.]要素；必需品</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>continual
+                                                        a.</span><span class="chinese">不间断的；频频的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>continuous
+                                                        a.</span><span class="chinese">连续不断的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>suspend
+                                                        vt.</span><span class="chinese">暂停；悬，吊</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>suspense
+                                                        n.</span><span class="chinese">悬疑，焦虑，悬念</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>halt n.</span><span
+                                                        class="chinese">停住，暂停 v.（使）停住</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>cease
+                                                        v./n.</span><span class="chinese">停止</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>prohibit
+                                                        vt.</span><span class="chinese">禁止</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>avoid vt.</span><span
+                                                        class="chinese">避免</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>owing a.</span><span
+                                                        class="chinese">应付的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>overall
+                                                        a.</span><span class="chinese">总体的；全部的 n. [pl.]工装裤</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>remarkable
+                                                        a.</span><span class="chinese">值得注意的；非凡的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>client n.</span><span
+                                                        class="chinese">委托人，顾客</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>tenant n.</span><span
+                                                        class="chinese">房客，佃户</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>proprietor
+                                                        n.</span><span class="chinese">所有人，业主</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>scrap n.</span><span
+                                                        class="chinese">碎片；废金属; [pl.]残羹剩饭；少量 vt. 废弃</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>scrape v.</span><span
+                                                        class="chinese">刮，擦 n. 刮，擦，刮擦声</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>slice n.</span><span
+                                                        class="chinese">薄片；一份，部分 vt. 切（片）</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>upbringing
+                                                        n.</span><span class="chinese">养育，抚育</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>cultivate
+                                                        vt.</span><span class="chinese">耕作；培养</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>nourish
+                                                        vt.</span><span class="chinese">养育；怀有（希望等）</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>tame a.</span><span
+                                                        class="chinese">驯服的；沉闷的 vt. 制服；驯化</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>civil a.</span><span
+                                                        class="chinese">公民的，国内的；民用的；民事的；文明的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>civilian
+                                                        n.</span><span class="chinese">平民，百姓</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>civilize/-ise
+                                                        v.</span><span class="chinese">使文明，使开化；教化，教育</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>sacrifice
+                                                        n.</span><span class="chinese">牺牲；献祭；祭品 vt. 牺牲；献祭</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>adopt vt.</span><span
+                                                        class="chinese">收养；采用；批准</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>comprehensive a.</span><span
-                                        class="chinese">综合的</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>extend vt.</span><span
-                                        class="chinese">延伸；扩大；提供
-                                        vi.
-                                        延伸；达到</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>extent n.</span><span
-                                        class="chinese">程度，范围；广度</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>extensive a.</span><span
-                                        class="chinese">广阔的；广泛的</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>exclusion n.</span><span
-                                        class="chinese">排除在外，排斥</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>exclusive a.</span><span
-                                        class="chinese">奢华的；独有的；排斥的;
-                                        (of) 不包括…的 n. 独家新闻</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>inclusive a.</span><span
-                                        class="chinese">包括一切的</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>eradicate v.</span><span
-                                        class="chinese">根除，消灭，杜绝</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>intense a.</span><span
-                                        class="chinese">强烈的，紧张的；专注的；热情的</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>intensify v.</span><span
-                                        class="chinese">增强</span>
-                        </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>intensive a.</span><span
-                                        class="chinese">加强的；精工细作的</span></div>
                 </div>
         </div>
 
-        <!-- Group 4 -->
-        <div class="group">
-                <div class="group-title" onclick="toggleGroup(4)">🎯 Group 4 - 核心概念</div>
-                <div id="group4" style="display: none;">
-                        <div class="word-card" onclick="toggleChinese(this)"><span>concentrate vi.</span><span
-                                        class="chinese">全神贯注；集中 vt.
-                                        集中；浓缩 n. 浓缩物</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>grave n.</span><span
-                                        class="chinese">坟墓 a.
-                                        严重的；严肃的</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>gravity n.</span><span
-                                        class="chinese">重力；严重；严肃</span>
+        <!-- Day 5 Section -->
+        <div class="day-section">
+                <div class="day-title" onclick="toggleDay(5)">📅 Day 5</div>
+                <div id="day5-content" style="display: none;">
+                        <!-- Day 5 Group 1 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(13)">🎯 Group 1 - 能力与限制</div>
+                                <div id="group13" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>capable
+                                                        a.</span><span class="chinese">有能力的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>capacity
+                                                        n.</span><span class="chinese">容量；能力；身份</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>critical
+                                                        a.</span><span class="chinese">关键性的；批评的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>criticize/-ise
+                                                        vt.</span><span class="chinese">批评；评论</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reject
+                                                        vt.</span><span class="chinese">拒绝；拒纳 n. 被拒货品</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>forbid
+                                                        vt.</span><span class="chinese">禁止</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>exclude
+                                                        vt.</span><span class="chinese">把…排斥在外</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>deny vt.</span><span
+                                                        class="chinese">否认；拒绝给予</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>infinite
+                                                        a.</span><span class="chinese">无限的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>eternal
+                                                        a.</span><span class="chinese">永恒的；没完没了的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>moreover
+                                                        ad.</span><span class="chinese">而且，此外</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>diminish
+                                                        v.</span><span class="chinese">变少，变小，降低</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>decrease
+                                                        v./n.</span><span class="chinese">减小，减少</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>dwindle
+                                                        v.</span><span class="chinese">渐渐减少（缩小），衰落</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>consideration
+                                                        n.</span><span class="chinese">考虑；体贴</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>considering
+                                                        prep.</span><span class="chinese">就…来说</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>aware a.</span><span
+                                                        class="chinese">意识到的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>conscious
+                                                        a.</span><span class="chinese">意识到的；神志清醒的；有意的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>offend
+                                                        vt.</span><span class="chinese">冒犯，伤害…的感情；使厌恶，违反</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>annoy vt.</span><span
+                                                        class="chinese">使烦恼；打扰</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>resent
+                                                        vt.</span><span class="chinese">对…表示忿恨</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>irritate
+                                                        vt.</span><span class="chinese">使恼怒；使（身体某部分）不适</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>upset vt.</span><span
+                                                        class="chinese">使心烦意乱；打乱；弄翻 n.（肠胃等）不适 a.心烦的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>revise v.</span><span
+                                                        class="chinese">修订；复习</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>manuscript
+                                                        n.</span><span class="chinese">手稿；手写本</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>edit vt.</span><span
+                                                        class="chinese">编辑，校订；主编；剪辑</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>edition
+                                                        n.</span><span class="chinese">版，版本</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>editorial
+                                                        a.</span><span class="chinese">编辑的；社论的 n. 社论</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>bid n.</span><span
+                                                        class="chinese">企图；投标 v. 喊价；祝；命令</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>solemn a.</span><span
-                                        class="chinese">严肃的；庄严的</span>
+
+                        <!-- Day 5 Group 2 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(14)">🔄 Group 2 - 应用与提议</div>
+                                <div id="group14" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>apply vi.</span><span
+                                                        class="chinese">申请；适用 vt. 实施；涂</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>applicable
+                                                        a.</span><span class="chinese">可应用的；合适的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>appliance
+                                                        n.</span><span class="chinese">器具</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>propose
+                                                        v.</span><span class="chinese">提议；提名；打算；求婚</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>generous
+                                                        a.</span><span class="chinese">慷慨的；宽厚的；大量的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>plentiful
+                                                        a.</span><span class="chinese">丰富的，充裕的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>abundant
+                                                        a.</span><span class="chinese">大量的; (in) 富裕的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>abound
+                                                        vi.</span><span class="chinese">大量存在; (in, with) 充满，富于</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>sufficient
+                                                        a.</span><span class="chinese">足够的，充分的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>adequate
+                                                        a.</span><span class="chinese">充足的；胜任的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>wholesome
+                                                        a.</span><span class="chinese">有益于健康的；有益的；健康的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>conducive
+                                                        a.</span><span class="chinese">有助于…的，促成…的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>appreciate
+                                                        vt.</span><span class="chinese">重视，欣赏；为…表示感激；领会 vi. 增值</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>criterion
+                                                        n.</span><span class="chinese">标准</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>standardize
+                                                        v.</span><span class="chinese">使（某事物）标准化</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>handy a.</span><span
+                                                        class="chinese">方便的；手边的；手巧的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>convenience
+                                                        n.</span><span class="chinese">方便；便利设施</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>benefit
+                                                        n.</span><span class="chinese">益处；救济金 v. 有益于，得益</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>beneficial
+                                                        a.</span><span class="chinese">有益的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>available
+                                                        a.</span><span class="chinese">现成可使用的；可得到的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>feasible
+                                                        a.</span><span class="chinese">可行的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>emphasis
+                                                        n.</span><span class="chinese">强调，重点</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>emphasize/-ise
+                                                        vt.</span><span class="chinese">强调</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>emphatic
+                                                        a.</span><span class="chinese">强调的，加强语气的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>eloquent
+                                                        a.</span><span class="chinese">雄辩的；明白显示出的</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>amount n.</span><span
-                                        class="chinese">数量；总数 vi.
-                                        (to)
-                                        合计；接近</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>mount vt.</span><span
-                                        class="chinese">登上；发起；安放
-                                        vi. 增加
-                                        n.[M-][用于山名前]山</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>exceed vt.</span><span
-                                        class="chinese">超过</span>
+
+                        <!-- Day 5 Group 3 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(15)">🎯 Group 3 - 效果与情感</div>
+                                <div id="group15" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>fluent a.</span><span
+                                                        class="chinese">流利的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>effective
+                                                        a.</span><span class="chinese">有效的；给人印象深刻的；实际的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>aftereffect
+                                                        n.</span><span class="chinese">（不良的）后果，副作用</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>emotion
+                                                        n.</span><span class="chinese">情感，感情</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>nerve n.</span><span
+                                                        class="chinese">神经；勇气</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>strain n.</span><span
+                                                        class="chinese">拉紧；极度紧张；张力；扭伤；[常pl.]旋律；品种，气质 vt. 扭伤；拉紧
+                                                        vi.尽力</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>aftermath
+                                                        n.</span><span class="chinese">（指不幸的）事件的余波，后果</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>outcome
+                                                        n.</span><span class="chinese">结果</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>consequence
+                                                        n.</span><span class="chinese">结果；重要（性）</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>consequently
+                                                        ad.</span><span class="chinese">所以</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>muscle n.</span><span
+                                                        class="chinese">肌肉；力量</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>bruise n.</span><span
+                                                        class="chinese">青肿；（水果等的）伤痕 vt. 使受淤伤；挫伤</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>sprain
+                                                        n./v.</span><span class="chinese">扭，扭伤</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>scratch
+                                                        v.</span><span class="chinese">抓；刮擦 n. 抓；抓痕</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>pace n.</span><span
+                                                        class="chinese">（一）步；速度 vi. 踱步</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>absence
+                                                        n.</span><span class="chinese">缺席；缺乏</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>presence
+                                                        n.</span><span class="chinese">出席，存在；仪表</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>presentation
+                                                        n.</span><span class="chinese">提供；外观；授予；报告；表演</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>parliament
+                                                        n.</span><span class="chinese">议会，国会</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>cabinet
+                                                        n.</span><span class="chinese">内阁；陈列柜</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>holy a.</span><span
+                                                        class="chinese">神圣的；虔诚的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>sacred a.</span><span
+                                                        class="chinese">神圣的；宗教（性）的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>bless vt.</span><span
+                                                        class="chinese">(with) 使有幸得到；为…祈神赐福（或保佑）</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>institute
+                                                        n.</span><span class="chinese">学院 vt. 建立</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>institution
+                                                        n.</span><span class="chinese">社会公共机构；制度；设立</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>exceedingly ad.</span><span
-                                        class="chinese">极其</span>
+                </div>
+        </div>
+
+        <!-- Day 6 Section -->
+        <div class="day-section">
+                <div class="day-title" onclick="toggleDay(6)">📅 Day 6</div>
+                <div id="day6-content" style="display: none;">
+                        <!-- Day 6 Group 1 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(16)">📝 Group 1 - 登记与范围</div>
+                                <div id="group16" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>register
+                                                        n.</span><span class="chinese">登记；登记表 v. 登记；指示；表示；注意到；挂号</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>inquire/ enquire
+                                                        v.</span><span class="chinese">询问</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>resolve
+                                                        vt.</span><span class="chinese">解决；决定; (into) 分解 vi. 决定</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>resolution
+                                                        n.</span><span class="chinese">决议；决心；解决；分辨率</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>rank n.</span><span
+                                                        class="chinese">军衔；地位; [the pl.]普通成员；排 vt. 把…分等 vi. 列入</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>scope n.</span><span
+                                                        class="chinese">范围；余地</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>range n.</span><span
+                                                        class="chinese">一系列；范围；距离；（山）脉；靶场 vi.（在某范围内）变化；(over) 论及；漫游 vt.
+                                                        使排列成行</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>domain n.</span><span
+                                                        class="chinese">领域；领地</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>occupy
+                                                        vt.</span><span class="chinese">占用；使忙碌</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>occupation
+                                                        n.</span><span class="chinese">职业；消遣；占领</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>decorate
+                                                        vt.</span><span class="chinese">装饰</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>trim vt.</span><span
+                                                        class="chinese">修剪；削减；装饰 a.苗条的；整齐的 n.修剪</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>ornament
+                                                        n.</span><span class="chinese">装饰品；装饰 vt. 装饰</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>significant
+                                                        a.</span><span class="chinese">相当数量的；意义重大的；意味深长的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>magnify
+                                                        vt.</span><span class="chinese">放大；夸大</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>magnificent
+                                                        a.</span><span class="chinese">宏伟的；豪华的；极好的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>purify
+                                                        vt.</span><span class="chinese">使纯净；使纯洁</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>afterward(s)
+                                                        ad.</span><span class="chinese">以后</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>opportunity
+                                                        n.</span><span class="chinese">机会</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>circumstance
+                                                        n.</span><span class="chinese">环境，形势; [pl.]境况</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>occasion
+                                                        n.</span><span class="chinese">时刻，场合；时机；起因 vt. 引起</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>grudge v.</span><span
+                                                        class="chinese">妒忌；吝惜，不愿给 n. 怨恨，恶意</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>disgust
+                                                        vt.</span><span class="chinese">使厌恶 n. 反感</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>curse v.</span><span
+                                                        class="chinese">咒骂 n. 咒骂；祸害</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>hatred n.</span><span
+                                                        class="chinese">憎恨</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>excess n.</span><span
-                                        class="chinese">过度；超越 a.
-                                        额外的</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>underline vt.</span><span
-                                        class="chinese">在…下面划线；强调</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>underlie vt.</span><span
-                                        class="chinese">构成…的基础（或起因）</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>utilize vt.</span><span
-                                        class="chinese">利用</span>
+
+                        <!-- Day 6 Group 2 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(17)">💎 Group 2 - 价值与框架</div>
+                                <div id="group17" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>invaluable
+                                                        a.</span><span class="chinese">非常宝贵的，无价的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>priceless
+                                                        a.</span><span class="chinese">无价的，极其珍贵的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>worthy a.</span><span
+                                                        class="chinese">(of) 值得的；可尊敬的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>worthwhile
+                                                        a.</span><span class="chinese">值得（做）的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>outline
+                                                        n.</span><span class="chinese">提纲；外形 vt. 概述；描…外形</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>outlook
+                                                        n.</span><span class="chinese">观点；展望；景色</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reference
+                                                        n.</span><span class="chinese">提到；参考；参考书目；证明书（或人）</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>frame n.</span><span
+                                                        class="chinese">框架；体格 vt. 给…镶框；陷害；制定</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>framework
+                                                        n.</span><span class="chinese">框架；参照标准；构成方式</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>scare n.</span><span
+                                                        class="chinese">惊恐 vt. 使害怕 vi. 受惊吓</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>menace n.</span><span
+                                                        class="chinese">具有危险性的人（或物）；威胁 vt. 威胁</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>threat n.</span><span
+                                                        class="chinese">威胁；凶兆</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>intimidate
+                                                        vt.</span><span class="chinese">恐吓</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>shiver
+                                                        vi./n.</span><span class="chinese">发抖</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>spin vi.</span><span
+                                                        class="chinese">旋转；晕眩；织（网）vt. 绞干 n. 旋转</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>stagger
+                                                        vi.</span><span class="chinese">摇晃，蹒跚 vt. 使吃惊；使动摇；使错开
+                                                        n.蹒跚</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>tunnel n.</span><span
+                                                        class="chinese">隧道 v. 挖（地道、隧道）</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>thereafter
+                                                        ad.</span><span class="chinese">以后</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>thereof
+                                                        ad.</span><span class="chinese">由此，其</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>thereby
+                                                        ad.</span><span class="chinese">从而</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>thereabout(s)
+                                                        ad.</span><span class="chinese">在附近的某地；大约，左右</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>latter n.</span><span
+                                                        class="chinese">后者 a. 后者的；后一半的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>previous
+                                                        a.</span><span class="chinese">以前的; (to) 在…之前</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>vacant a.</span><span
+                                                        class="chinese">未被占用的；空缺的；茫然的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>blank a.</span><span
+                                                        class="chinese">空白的；茫然的 n.空白；空白表格</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>utility n.</span><span
-                                        class="chinese">功用，效用；[常pl.]公用事业</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>premise n.</span><span
-                                        class="chinese">[pl.]经营场址；前提</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>hypothesis n.</span><span
-                                        class="chinese">假说，前提</span>
+
+                        <!-- Day 6 Group 3 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(18)">🎯 Group 3 - 中间与奖励</div>
+                                <div id="group18" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>intermediate
+                                                        a.</span><span class="chinese">中间的；中级的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>medium a.</span><span
+                                                        class="chinese">中等的，适中的 n.媒质；新闻媒介；手段</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>midst n.</span><span
+                                                        class="chinese">中部，中间</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>grant n.</span><span
+                                                        class="chinese">拨款 vt. 授予；同意</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reward n.</span><span
+                                                        class="chinese">报答，奖赏；酬金 vt. 报答</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>award vt.</span><span
+                                                        class="chinese">授予；判给 n. 奖</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>allowance
+                                                        n.</span><span class="chinese">津贴；零用钱</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>compensate
+                                                        v.</span><span class="chinese">补偿</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>fare n.</span><span
+                                                        class="chinese">票价 vi. 进展</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>obligation
+                                                        n.</span><span class="chinese">义务，责任</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>oblige
+                                                        vt.</span><span class="chinese">迫使；施恩于；使感激</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>promising
+                                                        a.</span><span class="chinese">有希望的，有前途的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>indicate
+                                                        vt.</span><span class="chinese">指出；表明</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>indicative
+                                                        a.</span><span class="chinese">(of) 标示的；陈述的 n. 陈述语气</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>positive
+                                                        a.</span><span class="chinese">确实的；积极的；正的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>negative
+                                                        a.</span><span class="chinese">否定的；消极的；负的 n. 底片；负数</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reveal
+                                                        vt.</span><span class="chinese">揭露；展现</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>evident
+                                                        a.</span><span class="chinese">明显的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>extract
+                                                        vt.</span><span class="chinese">抽出；提取；获得；摘录 n. 摘录；提出物</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>excerpt
+                                                        n.</span><span class="chinese">摘录</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>essay n.</span><span
+                                                        class="chinese">散文，随笔</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>fiction
+                                                        n.</span><span class="chinese">小说</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>compile
+                                                        vt.</span><span class="chinese">汇编，编纂</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>compose
+                                                        vt.</span><span class="chinese">组成；创作；使平静</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>fragment
+                                                        n.</span><span class="chinese">碎片 v.（使）成碎片</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>phenomenon n.</span><span
-                                        class="chinese">现象；非凡的人</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>marvelous a.</span><span
-                                        class="chinese">惊人的</span>
+
+                        <!-- Day 6 Group 4 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(19)">🔍 Group 4 - 解决与分析</div>
+                                <div id="group19" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reduction
+                                                        n.</span><span class="chinese">减少；降低</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>decline
+                                                        n./v.</span><span class="chinese">下降；衰落；谢绝</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>tackle
+                                                        vt.</span><span class="chinese">对付；与…交涉；（足球等比赛中）阻截
+                                                        n.阻截；用具；辘轳</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>cope vi.</span><span
+                                                        class="chinese">(with) 应付</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>assign
+                                                        vt.</span><span class="chinese">选派；指定；分配</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>realistic
+                                                        a.</span><span class="chinese">现实的；实际可行的；逼真的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>obstruct
+                                                        vt.</span><span class="chinese">阻塞；阻碍</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>solution
+                                                        n.</span><span class="chinese">解决；解决方法；溶液</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>soluble
+                                                        a.</span><span class="chinese">可溶的；可解决的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>gender n.</span><span
+                                                        class="chinese">性别，性</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>database
+                                                        n.</span><span class="chinese">数据库</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>analyse/-yze
+                                                        vt.</span><span class="chinese">分析</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>analysis
+                                                        n.</span><span class="chinese">分析</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>accent n.</span><span
+                                                        class="chinese">口音；重音 vt. 重读</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>deteriorate
+                                                        vi.</span><span class="chinese">恶化</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>autonomous
+                                                        a.</span><span class="chinese">自治的；独立自主的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>diagnose
+                                                        vt.</span><span class="chinese">诊断</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>syndrome
+                                                        n.</span><span class="chinese">综合病症；一系列表现</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>surround
+                                                        vt.</span><span class="chinese">包围；围绕</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>enclose
+                                                        vt.</span><span class="chinese">围住；把…装入信封</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>encircle
+                                                        v.</span><span class="chinese">环绕，包围，绕行</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>chill vt.</span><span
+                                                        class="chinese">使变冷 n. 寒冷；风寒</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>ventilate
+                                                        vt.</span><span class="chinese">使通风；把…公开</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>neeze vi.</span><span
+                                                        class="chinese">打喷嚏 n. 喷嚏</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>sore a.</span><span
+                                                        class="chinese">疼痛的；恼火的；极度的 n.痛处</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>dedicate vt.</span><span
-                                        class="chinese">题献词于…上;
-                                        (to)
-                                        把…献给</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>toast n.</span><span
-                                        class="chinese">烤面包；祝酒辞vt.
-                                        烘，烤；为…干杯</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>memorise/-ize v.</span><span
-                                        class="chinese">记住</span>
+                </div>
+        </div>
+
+        <!-- Day 7 Section -->
+        <div class="day-section">
+                <div class="day-title" onclick="toggleDay(7)">📅 Day 7</div>
+                <div id="day7-content" style="display: none;">
+                        <!-- Day 7 Group 1 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(20)">📢 Group 1 - 宣告与确认</div>
+                                <div id="group20" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reclaim
+                                                        vt.</span><span class="chinese">要回；开垦（荒地）；回收</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>exclaim
+                                                        v.</span><span class="chinese">呼喊，惊叫</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>proclaim
+                                                        vt.</span><span class="chinese">宣告；显示</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>declaration
+                                                        n.</span><span class="chinese">宣布；声明；申报</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>confirm
+                                                        vt.</span><span class="chinese">证实；确认；批准</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>confess
+                                                        v.</span><span class="chinese">坦白；承认</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>acknowledge
+                                                        vt.</span><span class="chinese">承认；确认；报偿</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>account
+                                                        n.</span><span class="chinese">记述；账户；解释 vi. (for) 说明…的原因</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>behalf n.</span><span
+                                                        class="chinese">利益；方面</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>intend
+                                                        vt.</span><span class="chinese">计划；打算使（成为）</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>intention
+                                                        n.</span><span class="chinese">意图</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>desirable
+                                                        a.</span><span class="chinese">值得想望的；可取的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>elegant
+                                                        a.</span><span class="chinese">优美的，讲究的；简练的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>acceptance
+                                                        n.</span><span class="chinese">接受；承认；容忍</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>numerous
+                                                        a.</span><span class="chinese">众多的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>massive
+                                                        a.</span><span class="chinese">大的；大量的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>justice
+                                                        n.</span><span class="chinese">正义，公正；司法</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>justify
+                                                        vt.</span><span class="chinese">证明…正当，为…辩护</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>judicial
+                                                        a.</span><span class="chinese">司法的，审判的；明断的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>provision
+                                                        n.</span><span class="chinese">供应；准备；条款; [pl.]给养</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>preparation
+                                                        n.</span><span class="chinese">准备（工作）；制剂</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>requirement
+                                                        n.</span><span class="chinese">要求；需要的东西</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>peculiar
+                                                        a.</span><span class="chinese">奇怪的；特有的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>specific
+                                                        a.</span><span class="chinese">特定的；明确的 n.[pl.]详情</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>specialize/-ise
+                                                        vi.</span><span class="chinese">(in) 专攻</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>specialty/ speciality
+                                                        n.</span><span class="chinese">特产；专业，专长</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>species
+                                                        n.</span><span class="chinese">种，类</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>specify
+                                                        vt.</span><span class="chinese">明确说明</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>memorial a.</span><span
-                                        class="chinese">纪念的 n.
-                                        纪念碑</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>wisdom n.</span><span
-                                        class="chinese">明智；智慧</span>
+
+                        <!-- Day 7 Group 2 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(21)">😴 Group 2 - 疲劳与压力</div>
+                                <div id="group21" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>particularly
+                                                        ad.</span><span class="chinese">特别，尤其</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>weary a.</span><span
+                                                        class="chinese">疲劳的；令人厌倦的 vi. (of) 厌烦</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>fatigue
+                                                        n./v.</span><span class="chinese">（使）疲劳</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>stress n.</span><span
+                                                        class="chinese">压力；强调；应力；重音 vt. 强调，重读</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>excitement
+                                                        n.</span><span class="chinese">激动；令人兴奋的事</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>temper n.</span><span
+                                                        class="chinese">脾气；韧度 vt. 调和；使回火</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>crisis n.</span><span
+                                                        class="chinese">危机；决定性时刻</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>beware v.</span><span
+                                                        class="chinese">谨防，当心</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>economical
+                                                        a.</span><span class="chinese">节约的，经济的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>economy
+                                                        n.</span><span class="chinese">经济；节约</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>stagnant
+                                                        a.</span><span class="chinese">（指水）因不流动而污浊的；不景气的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>motion n.</span><span
+                                                        class="chinese">运动；手势；提议 v.（向…）打手势</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>activate
+                                                        vt.</span><span class="chinese">使活动起来</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>split vi.</span><span
+                                                        class="chinese">分裂 vt. 撕裂；分担 n. 裂口；分裂</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>mobile a.</span><span
+                                                        class="chinese">运动的；机动的；多变的 n.移动电话</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>vehicle
+                                                        a.</span><span class="chinese">交通工具，车辆；传播媒介</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>frugal a.</span><span
+                                                        class="chinese">节俭的，节约的；廉价的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>thrift n.</span><span
+                                                        class="chinese">节约</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>preside
+                                                        vi.</span><span class="chinese">(at, over) 主持，主管</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>introduction
+                                                        n.</span><span class="chinese">介绍；引进；引言</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>dominate
+                                                        v.</span><span class="chinese">支配；耸立于</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>dominant
+                                                        a.</span><span class="chinese">占优势的；居高临下的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>welfare
+                                                        n.</span><span class="chinese">福利；福利救济</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>consist
+                                                        vi.</span><span class="chinese">(of) 构成; (in) 在于</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>constitute
+                                                        vt.</span><span class="chinese">组成；设立，任命</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>comprise
+                                                        vt.</span><span class="chinese">包含；构成</span></div>
+                                </div>
                         </div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>wit n.</span><span
-                                        class="chinese">风趣；[常pl.]智力，才智</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>organ n.</span><span
-                                        class="chinese">器官；风琴；机构；新闻媒介</span></div>
-                        <div class="word-card" onclick="toggleChinese(this)"><span>organize/-ise vt.</span><span
-                                        class="chinese">组织；使有条理</span></div>
+
+                        <!-- Day 7 Group 3 -->
+                        <div class="group">
+                                <div class="group-title" onclick="toggleGroup(22)">🏫 Group 3 - 教育与城市</div>
+                                <div id="group22" style="display: none;">
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>rural a.</span><span
+                                                        class="chinese">农村的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>suburb n.</span><span
+                                                        class="chinese">市郊，郊区</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>urban a.</span><span
+                                                        class="chinese">城市的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>educate
+                                                        vt.</span><span class="chinese">教育，培养</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>compulsory
+                                                        a.</span><span class="chinese">强制性的，必修的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>graduate
+                                                        n.</span><span class="chinese">毕业生；研究生 a. 研究生的 v.（使）毕业</span>
+                                        </div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>curriculum
+                                                        n.</span><span class="chinese">课程</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>extracurricular
+                                                        a.</span><span class="chinese">课外的，课程以外的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>receipt
+                                                        n.</span><span class="chinese">发票，收据; [pl.]收入；收到</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reception
+                                                        n.</span><span class="chinese">招待会；接受；接待；接收效果</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>celebrity
+                                                        n.</span><span class="chinese">名声；名人</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>renowned
+                                                        a.</span><span class="chinese">著名的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>fame n.</span><span
+                                                        class="chinese">声誉，名声</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>costume
+                                                        n.</span><span class="chinese">服饰；戏装，成套服装</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>costly a.</span><span
+                                                        class="chinese">昂贵的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>crew n.</span><span
+                                                        class="chinese">全体机务人员；一队工作人员</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>strand n.</span><span
+                                                        class="chinese">（线等的）股，缕；一个组成部分 vt. 使搁浅</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>remote a.</span><span
+                                                        class="chinese">遥远的；关系疏远的；绝少的；孤高的</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>isolate
+                                                        vt.</span><span class="chinese">使隔离，使孤立</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>monarch
+                                                        n.</span><span class="chinese">君主，帝王</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>reign n.</span><span
+                                                        class="chinese">君主的统治vi.当政，统治；占主导地位</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>suicide
+                                                        n.</span><span class="chinese">自杀；自取灭亡</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>slash vt.</span><span
+                                                        class="chinese">砍；大幅度削减 n. 砍；斜线号</span></div>
+                                        <div class="word-card" onclick="toggleChinese(this)"><span>census n.</span><span
+                                                        class="chinese">人口普查</span></div>
+                                </div>
+                        </div>
                 </div>
         </div>
 
@@ -484,14 +1677,39 @@
                 let allWords = [];
                 let currentIndex = 0;
                 let currentMode = null;
+                let selectedDay = null;
 
-                // 收集所有单词
+                // 显示Day选择弹窗
+                function showDaySelect(mode) {
+                        currentMode = mode;
+                        document.getElementById('daySelectModal').classList.add('active');
+                }
+
+                // 选择Day
+                function selectDay(day) {
+                        selectedDay = day;
+                        document.getElementById('daySelectModal').classList.remove('active');
+
+                        if (currentMode === 'random') {
+                                startRandomMode();
+                        } else if (currentMode === 'dictation') {
+                                startDictationMode();
+                        }
+                }
+
+                // 收集指定Day的单词
                 function collectWords() {
-                        const wordCards = document.querySelectorAll('.word-card');
-                        allWords = Array.from(wordCards).map(card => ({
-                                word: card.querySelector('span:first-child').textContent,
-                                meaning: card.querySelector('.chinese').textContent
-                        }));
+                        const dayContent = document.getElementById(`day${selectedDay}-content`);
+                        if (!dayContent) {
+                                console.error(`Day ${selectedDay} content not found`);
+                                return;
+                        }
+                        const wordCards = dayContent.querySelectorAll('.word-card');
+                        allWords = Array.from(wordCards)
+                                .map(card => ({
+                                        word: card.querySelector('span:first-child').textContent,
+                                        meaning: card.querySelector('.chinese').textContent
+                                }));
                 }
 
                 // 随机打乱数组
@@ -505,7 +1723,6 @@
 
                 // 开始随机单词模式
                 function startRandomMode() {
-                        currentMode = 'random';
                         document.getElementById('randomMode').classList.add('active');
                         document.getElementById('dictationMode').classList.remove('active');
                         collectWords();
@@ -530,17 +1747,12 @@
                                 shuffleArray(allWords);
                         }
                         const wordDisplay = document.getElementById('randomWord');
+                        wordDisplay.textContent = allWords[currentIndex].word;
                         currentIndex++;
-                        if (currentIndex < allWords.length) {
-                                wordDisplay.textContent = allWords[currentIndex].word;
-                        } else {
-                                wordDisplay.textContent = '已完成所有单词！';
-                        }
                 }
 
                 // 开始默写模式
                 function startDictationMode() {
-                        currentMode = 'dictation';
                         document.getElementById('dictationMode').classList.add('active');
                         document.getElementById('randomMode').classList.remove('active');
                         collectWords();
@@ -565,18 +1777,22 @@
                                 shuffleArray(allWords);
                         }
                         const meaningDisplay = document.getElementById('dictationMeaning');
+                        meaningDisplay.textContent = allWords[currentIndex].meaning;
                         currentIndex++;
-                        if (currentIndex < allWords.length) {
-                                meaningDisplay.textContent = allWords[currentIndex].meaning;
-                        } else {
-                                meaningDisplay.textContent = '已完成所有单词！';
-                        }
                 }
 
                 // 切换中文释义
                 function toggleChinese(card) {
                         const chinese = card.querySelector('.chinese');
                         chinese.classList.toggle('visible');
+                }
+
+                // 切换天的显示
+                function toggleDay(dayNum) {
+                        const dayContent = document.getElementById(`day${dayNum}-content`);
+                        const dayTitle = dayContent.previousElementSibling;
+                        dayContent.style.display = dayContent.style.display === 'none' ? 'block' : 'none';
+                        dayTitle.innerHTML = dayTitle.innerHTML.replace(/▼|▶/, dayContent.style.display === 'none' ? '▶' : '▼');
                 }
 
                 // 切换单词组显示
